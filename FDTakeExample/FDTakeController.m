@@ -158,6 +158,7 @@ static NSString * const kStringsTableName = @"FDTake";
                 [self.imagePicker setCameraDevice:UIImagePickerControllerCameraDeviceFront];
             }
         }
+      
         // set the media type: photo or video
         if (actionSheet.tag == kPhotosActionSheetTag) {
             self.imagePicker.allowsEditing = self.allowsEditingPhoto;
@@ -182,7 +183,7 @@ static NSString * const kStringsTableName = @"FDTake";
                 }
             }
         }
-        
+      
         // On iPad use pop-overs.
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             [self.popover presentPopoverFromRect:self.popOverPresentRect
@@ -194,7 +195,18 @@ static NSString * const kStringsTableName = @"FDTake";
             // On iPhone use full screen presentation.
             [[self presentingViewController] presentViewController:self.imagePicker animated:YES completion:nil];
         }
+      
+        if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera && [self imagePickerSupportsOnlyMovieMediaType]) {
+          if ([self.delegate respondsToSelector:@selector(takeControllerDidStartTakingVideo:)]) {
+            [self.delegate takeControllerDidStartTakingVideo:self];
+          }
+        }
     }
+}
+
+- (BOOL)imagePickerSupportsOnlyMovieMediaType
+{
+  return ([self.imagePicker.mediaTypes containsObject:kUTTypeMovie] && ![self.imagePicker.mediaTypes containsObject:kUTTypeImage]);
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -209,7 +221,6 @@ static NSString * const kStringsTableName = @"FDTake";
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
@@ -253,7 +264,6 @@ static NSString * const kStringsTableName = @"FDTake";
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [picker dismissViewControllerAnimated:YES completion:nil];
     self.imagePicker = nil;

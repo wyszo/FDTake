@@ -24,6 +24,11 @@
 - (void)takeController:(FDTakeController *)controller didFailAfterAttempting:(BOOL)madeAttempt;
 
 /**
+ * Delegate method after the user choose 'Take Video' operation
+ */
+- (void)takeControllerDidStartTakingVideo:(FDTakeController *)controller;
+
+/**
  * Delegate method after the user has successfully taken or selected a photo
  */
 - (void)takeController:(FDTakeController *)controller gotPhoto:(UIImage *)photo withInfo:(NSDictionary *)info;
