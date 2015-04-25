@@ -333,8 +333,8 @@ static NSString * const kStringsTableName = @"FDTake";
     }
     
     if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera && [self imagePickerSupportsOnlyMovieMediaType]) {
-      if ([self.delegate respondsToSelector:@selector(takeControllerDidStartTakingVideo:)]) {
-        [self.delegate takeControllerDidStartTakingVideo:self];
+      if ([self.delegate respondsToSelector:@selector(takeControllerDidStartTakingVideo:withImagePickerController:)]) {
+        [self.delegate takeControllerDidStartTakingVideo:self withImagePickerController:self.imagePicker];
       }
     }
   }

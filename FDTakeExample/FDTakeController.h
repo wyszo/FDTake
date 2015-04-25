@@ -26,7 +26,7 @@
 /**
  * Delegate method after the user choose 'Take Video' operation
  */
-- (void)takeControllerDidStartTakingVideo:(FDTakeController *)controller;
+- (void)takeControllerDidStartTakingVideo:(FDTakeController *)controller withImagePickerController:(UIImagePickerController *)imagePickerController;
 
 /**
  * Delegate method after the user has successfully taken or selected a photo
