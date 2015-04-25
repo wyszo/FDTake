@@ -112,4 +112,9 @@
  */
 @property (nonatomic, copy) NSString *noSourcesText;
 
+/**
+ * If you want to use a custom camera implementation instead of a default UIImagePicker, provide the implementation in here
+ */
+@property (nonatomic, copy) void (^presentCustomPhotoCaptureViewBlock)();
+
 @end

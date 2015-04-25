@@ -282,7 +282,7 @@ static NSString * const kStringsTableName = @"FDTake";
   if (!cancelButton) {
     self.imagePicker.sourceType = [[self.sources objectAtIndex:buttonIndex] integerValue];
     
-    if ((self.imagePicker.sourceType==UIImagePickerControllerSourceTypeCamera) || (self.imagePicker.sourceType==UIImagePickerControllerSourceTypeCamera)) {
+    if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera) {
       if (self.defaultToFrontCamera && [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
         [self.imagePicker setCameraDevice:UIImagePickerControllerCameraDeviceFront];
       }
@@ -313,6 +313,13 @@ static NSString * const kStringsTableName = @"FDTake";
       }
     }
     
+    if (self.isInPhotoCaptureMode) {
+      if (self.presentCustomPhotoCaptureViewBlock) {
+        self.presentCustomPhotoCaptureViewBlock();
+        return;
+      }
+    }
+    
     // On iPad use pop-overs.
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
       [self.popover presentPopoverFromRect:self.popOverPresentRect
@@ -331,6 +338,11 @@ static NSString * const kStringsTableName = @"FDTake";
       }
     }
   }
+}
+
+- (BOOL)isInPhotoCaptureMode
+{
+  return (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera && [self.imagePicker.mediaTypes containsObject:(NSString *)kUTTypeImage]);
 }
 
 - (BOOL)imagePickerSupportsOnlyMovieMediaType
