@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 William Entriken. All rights reserved.
 //
 
-@import MobileCoreServices;
 #import <TWCommonLib/TWAssetsHelper.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "FDTakeController.h"
 
 #define kPhotosActionSheetTag 1

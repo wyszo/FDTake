@@ -531,11 +531,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A7F5570A14CBF26A859CCCDB /* Pods.debug.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULES = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FDTakeExample/FDTakeExample-Prefix.pch";
 				INFOPLIST_FILE = "FDTakeExample/FDTakeExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -545,11 +545,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 37DDDE479CE9056C171847C4 /* Pods.release.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULES = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FDTakeExample/FDTakeExample-Prefix.pch";
 				INFOPLIST_FILE = "FDTakeExample/FDTakeExample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
