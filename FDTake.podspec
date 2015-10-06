@@ -14,4 +14,5 @@ Pod::Spec.new do |s|
   s.source_files  = "FDTakeExample/FDTakeController.{h,m}"
   s.resources = "FDTakeExample/*.lproj"
   s.requires_arc = true
+  s.dependency 'TWCommonLib'
 end
