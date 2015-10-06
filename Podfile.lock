@@ -26,12 +26,17 @@ PODS:
   - UIAlertView-Blocks (1.0)
 
 DEPENDENCIES:
-  - TWCommonLib (from `../TWCommonLib`)
+  - TWCommonLib (from `https://github.com/wyszo/TWCommonLib.git`, tag `CommonLib_0_7`)
 
 EXTERNAL SOURCES:
   TWCommonLib:
-    :branch: v0_7
-    :path: ../TWCommonLib
+    :git: https://github.com/wyszo/TWCommonLib.git
+    :tag: CommonLib_0_7
+
+CHECKOUT OPTIONS:
+  TWCommonLib:
+    :git: https://github.com/wyszo/TWCommonLib.git
+    :tag: CommonLib_0_7
 
 SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
