@@ -6,8 +6,9 @@
 //  Copyright (c) 2012 William Entriken. All rights reserved.
 //
 
+@import MobileCoreServices;
+#import <TWCommonLib/TWAssetsHelper.h>
 #import "FDTakeController.h"
-#import <MobileCoreServices/MobileCoreServices.h>
 
 #define kPhotosActionSheetTag 1
 #define kVideosActionSheetTag 2
@@ -190,44 +191,61 @@ static NSString * const kStringsTableName = @"FDTake";
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    
+
     NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
     UIImage *originalImage, *editedImage, *imageToSave;
-    
+
     // Handle a still image capture
-    if (CFStringCompare ((CFStringRef) mediaType, kUTTypeImage, 0)
-        == kCFCompareEqualTo) {
+    if (CFStringCompare ((CFStringRef) mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
         
-        editedImage = (UIImage *) [info objectForKey:
-                                   UIImagePickerControllerEditedImage];
-        originalImage = (UIImage *) [info objectForKey:
-                                     UIImagePickerControllerOriginalImage];
+        editedImage = (UIImage *) [info objectForKey:UIImagePickerControllerEditedImage];
+        originalImage = (UIImage *) [info objectForKey:UIImagePickerControllerOriginalImage];
         
         if (editedImage) {
             imageToSave = editedImage;
         } else if (originalImage) {
             imageToSave = originalImage;
         } else {
-            if ([self.delegate respondsToSelector:@selector(takeController:didFailAfterAttempting:)])
-                [self.delegate takeController:self didFailAfterAttempting:YES];
-            return;
+          if ([self.delegate respondsToSelector:@selector(takeController:didFailAfterAttempting:)])
+              [self.delegate takeController:self didFailAfterAttempting:YES];
+          return;
         }
         
-        if ([self.delegate respondsToSelector:@selector(takeController:gotPhoto:withInfo:)])
+        if ([self.delegate respondsToSelector:@selector(takeController:gotPhoto:withInfo:)]) {
             [self.delegate takeController:self gotPhoto:imageToSave withInfo:info];
+        }
         
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             [self.popover dismissPopoverAnimated:YES];
+        }
     }
     // Handle a movie capture
     else if (CFStringCompare ((CFStringRef) mediaType, kUTTypeMovie, 0)
-        == kCFCompareEqualTo) {
-        if ([self.delegate respondsToSelector:@selector(takeController:gotVideo:withInfo:)])
-            [self.delegate takeController:self gotVideo:[info objectForKey:UIImagePickerControllerMediaURL] withInfo:info];
-    }
+           == kCFCompareEqualTo) {
+        NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
 
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    self.imagePicker = nil;
+        void (^videoURLCompletionBlock)(NSURL *videoURL, NSDictionary *infoDictionary) = ^(NSURL *videoURL, NSDictionary *infoDictionary) {
+            if ([self.delegate respondsToSelector:@selector(takeController:gotVideo:withInfo:)]) {
+                [self.delegate takeController:self gotVideo:videoURL withInfo:info];
+            }
+            [picker dismissViewControllerAnimated:YES completion:nil];
+            self.imagePicker = nil;
+        };
+
+        if (videoURL) {
+            // video saved locally, we got the URL
+            videoURLCompletionBlock(videoURL, info);
+        }
+        else {
+            // iCloud video, need to fetch the URL using PhotoLibrary framework
+            NSURL *referenceURL = info[UIImagePickerControllerReferenceURL];
+
+            TWAssetsHelper *assetsHelper = [TWAssetsHelper new];
+            [assetsHelper videoAssetLocalURLForICloudReferenceURL:referenceURL completion:^(NSURL * _Nullable videoURL) {
+                videoURLCompletionBlock(videoURL, info);
+            }];
+        }
+    }
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
