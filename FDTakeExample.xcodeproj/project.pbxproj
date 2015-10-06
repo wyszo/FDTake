@@ -25,6 +25,7 @@
 		D96F405B1915AAC200D99C30 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 774CDAC815D3DCDF00B14C45 /* UIKit.framework */; };
 		D96F40611915AAC200D99C30 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D96F405F1915AAC200D99C30 /* InfoPlist.strings */; };
 		D96F40631915AAC300D99C30 /* FDTakeExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D96F40621915AAC200D99C30 /* FDTakeExampleTests.m */; };
+		E995B880857E82CD41E49C32 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF647F6E1C3D04E5DF6398E /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,8 @@
 
 /* Begin PBXFileReference section */
 		2A98B8241918FF6B006AB3F0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/FDTake.strings; sourceTree = "<group>"; };
+		37DDDE479CE9056C171847C4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		3BF647F6E1C3D04E5DF6398E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C7A51E71926108C00C8CA34 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/FDTake.strings; sourceTree = "<group>"; };
 		620D875018D1C03600A11273 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/FDTake.strings; sourceTree = "<group>"; };
 		77046A291771104200F31874 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FDTake.strings; sourceTree = "<group>"; };
@@ -65,6 +68,7 @@
 		77C46D45162B51FE001166D9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/FDTake.strings"; sourceTree = "<group>"; };
 		77F31B04178633B70032DFC5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/FDTake.strings; sourceTree = "<group>"; };
 		844FD351193C54C1007B1816 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/FDTake.strings; sourceTree = "<group>"; };
+		A7F5570A14CBF26A859CCCDB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C162211F171EC648000E0D6F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/FDTake.strings"; sourceTree = "<group>"; };
 		D51AFEB81719968900B0543C /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/FDTake.strings; sourceTree = "<group>"; };
 		D96F40571915AAC200D99C30 /* FDTakeExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FDTakeExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +94,7 @@
 				774CDAC915D3DCDF00B14C45 /* UIKit.framework in Frameworks */,
 				774CDACB15D3DCDF00B14C45 /* Foundation.framework in Frameworks */,
 				774CDACD15D3DCDF00B14C45 /* CoreGraphics.framework in Frameworks */,
+				E995B880857E82CD41E49C32 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +111,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D7847E44722789D7E64B866 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A7F5570A14CBF26A859CCCDB /* Pods.debug.xcconfig */,
+				37DDDE479CE9056C171847C4 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		774CDAB915D3DCDF00B14C45 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +128,7 @@
 				D96F405C1915AAC200D99C30 /* FDTakeExampleTests */,
 				774CDAC715D3DCDF00B14C45 /* Frameworks */,
 				774CDAC515D3DCDF00B14C45 /* Products */,
+				4D7847E44722789D7E64B866 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,6 +149,7 @@
 				774CDACA15D3DCDF00B14C45 /* Foundation.framework */,
 				774CDACC15D3DCDF00B14C45 /* CoreGraphics.framework */,
 				D96F40581915AAC200D99C30 /* XCTest.framework */,
+				3BF647F6E1C3D04E5DF6398E /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -200,9 +216,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 774CDAE515D3DCDF00B14C45 /* Build configuration list for PBXNativeTarget "FDTakeExample" */;
 			buildPhases = (
+				049C0987AC9911F0D1D9DE42 /* Check Pods Manifest.lock */,
 				774CDAC015D3DCDF00B14C45 /* Sources */,
 				774CDAC115D3DCDF00B14C45 /* Frameworks */,
 				774CDAC215D3DCDF00B14C45 /* Resources */,
+				14D7A51653D338AD614F32BF /* Embed Pods Frameworks */,
+				31C1532F8D8FF585C6736E4D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -303,6 +322,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		049C0987AC9911F0D1D9DE42 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		14D7A51653D338AD614F32BF /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		31C1532F8D8FF585C6736E4D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		774CDAC015D3DCDF00B14C45 /* Sources */ = {
@@ -462,6 +529,7 @@
 		};
 		774CDAE615D3DCDF00B14C45 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7F5570A14CBF26A859CCCDB /* Pods.debug.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FDTakeExample/FDTakeExample-Prefix.pch";
@@ -473,6 +541,7 @@
 		};
 		774CDAE715D3DCDF00B14C45 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37DDDE479CE9056C171847C4 /* Pods.release.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FDTakeExample/FDTakeExample-Prefix.pch";

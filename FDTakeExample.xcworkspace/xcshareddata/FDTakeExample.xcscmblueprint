@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "74B30E916FEB3F1F00C0CC7B7C62B66787E7FA1D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E32DCCBF449877EC87A06E0CB9B49557E2DB90AB" : 0,
+    "74B30E916FEB3F1F00C0CC7B7C62B66787E7FA1D" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "62B756E3-386B-40CC-AA92-AC55A388E2C7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E32DCCBF449877EC87A06E0CB9B49557E2DB90AB" : "TWCommonLib\/",
+    "74B30E916FEB3F1F00C0CC7B7C62B66787E7FA1D" : "FDTake\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FDTakeExample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FDTakeExample.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/wyszo\/FDTake.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "74B30E916FEB3F1F00C0CC7B7C62B66787E7FA1D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/wyszo\/TWCommonLib.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E32DCCBF449877EC87A06E0CB9B49557E2DB90AB"
+    }
+  ]
+}
