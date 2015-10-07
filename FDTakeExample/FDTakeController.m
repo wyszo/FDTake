@@ -195,6 +195,12 @@ static NSString * const kStringsTableName = @"FDTake";
     NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
     UIImage *originalImage, *editedImage, *imageToSave;
 
+    __weak typeof(self) weakSelf = self;
+    void (^dismissBlock)(UIImagePickerController *) = ^(UIImagePickerController *imagePicker) {
+        [imagePicker dismissViewControllerAnimated:YES completion:nil];
+        weakSelf.imagePicker = nil;
+    };
+    
     // Handle a still image capture
     if (CFStringCompare ((CFStringRef) mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
         
@@ -218,18 +224,19 @@ static NSString * const kStringsTableName = @"FDTake";
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             [self.popover dismissPopoverAnimated:YES];
         }
+        
+        dismissBlock(picker);
     }
     // Handle a movie capture
     else if (CFStringCompare ((CFStringRef) mediaType, kUTTypeMovie, 0)
            == kCFCompareEqualTo) {
         NSURL *videoURL = [info objectForKey:UIImagePickerControllerMediaURL];
-
+        
         void (^videoURLCompletionBlock)(NSURL *videoURL, NSDictionary *infoDictionary) = ^(NSURL *videoURL, NSDictionary *infoDictionary) {
-            if ([self.delegate respondsToSelector:@selector(takeController:gotVideo:withInfo:)]) {
-                [self.delegate takeController:self gotVideo:videoURL withInfo:info];
+            if ([weakSelf.delegate respondsToSelector:@selector(takeController:gotVideo:withInfo:)]) {
+                [weakSelf.delegate takeController:weakSelf gotVideo:videoURL withInfo:info];
             }
-            [picker dismissViewControllerAnimated:YES completion:nil];
-            self.imagePicker = nil;
+            dismissBlock(picker);
         };
 
         if (videoURL) {
