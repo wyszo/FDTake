@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 William Entriken. All rights reserved.
 //
 
-#import <TWCommonLib/TWAssetsHelper.h>
+#import <TWCommonLib/TWCommonLib.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "FDTakeController.h"
 
@@ -14,6 +14,7 @@
 #define kVideosActionSheetTag 2
 #define kVideosOrPhotosActionSheetTag 3
 
+static NSString * const kLocalUserVideosDirectoryName = @"userVideos";
 static NSString * const kTakePhotoKey = @"takePhoto";
 static NSString * const kTakeVideoKey = @"takeVideo";
 static NSString * const kChooseFromLibraryKey = @"chooseFromLibrary";
@@ -234,7 +235,9 @@ static NSString * const kStringsTableName = @"FDTake";
         
         void (^videoURLCompletionBlock)(NSURL *videoURL, NSDictionary *infoDictionary) = ^(NSURL *videoURL, NSDictionary *infoDictionary) {
             if ([weakSelf.delegate respondsToSelector:@selector(takeController:gotVideo:withInfo:)]) {
+              DISPATCH_ASYNC_ON_MAIN_THREAD(^{
                 [weakSelf.delegate takeController:weakSelf gotVideo:videoURL withInfo:info];
+              });
             }
             dismissBlock(picker);
         };
@@ -244,15 +247,59 @@ static NSString * const kStringsTableName = @"FDTake";
             videoURLCompletionBlock(videoURL, info);
         }
         else {
-            // iCloud video, need to fetch the URL using PhotoLibrary framework
-            NSURL *referenceURL = info[UIImagePickerControllerReferenceURL];
-
-            TWAssetsHelper *assetsHelper = [TWAssetsHelper new];
-            [assetsHelper videoAssetLocalURLForICloudReferenceURL:referenceURL completion:^(NSURL * _Nullable videoURL) {
-                videoURLCompletionBlock(videoURL, info);
-            }];
+          // iCloud video, need to fetch the URL using PhotoLibrary framework
+          NSURL *referenceURL = info[UIImagePickerControllerReferenceURL];
+          NSString *assetName = [self videoFilenameFromReferenceURL:referenceURL];
+          
+          [self copyICloudVideoWithReferenceURLToLocalDocumentsPath: referenceURL withName:assetName completion:^(NSURL *videoURL, NSError *error){
+            videoURLCompletionBlock(videoURL, info);
+          }];
         }
     }
+}
+
+- (NSString *)videoFilenameFromReferenceURL:(nonnull NSURL *)referenceURL
+{
+  // AssertTrueOrReturnNil(referenceURL.length);
+  NSString *fileExtension = [referenceURL pathExtension];
+  
+  NSString *assetName = [NSString stringWithFormat:@"%@%@", [referenceURL lastPathComponent], [referenceURL query]];
+  assetName = [assetName tw_stringByReplacingCharactersInString:@"&=.-" withString:@"_"];
+  if (fileExtension) {
+    assetName = [assetName stringByAppendingFormat:@".%@", fileExtension];
+  }
+  return assetName;
+}
+
+- (void)copyICloudVideoWithReferenceURLToLocalDocumentsPath:(nonnull NSURL *)referenceURL withName:(nonnull NSString *)assetName completion:(VoidBlock)completion
+{
+  // AssertTrueOrReturn(referenceURL);
+  TWAssetsHelper *assetsHelper = [TWAssetsHelper new];
+  
+  TWFilesystemHelper *filesystemHelper = [TWFilesystemHelper new];
+  [filesystemHelper createDocumentsSubdirectoryIfDoesntExist:kLocalUserVideosDirectoryName];
+  
+  NSString *destinationVideoPath = [self localDocumentsPathForVideoNamed:assetName];
+  NSURL *tempVideoURL = [NSURL fileURLWithPath:destinationVideoPath];
+  [filesystemHelper removeFileAtPathIfExists:destinationVideoPath];
+  
+  [assetsHelper videoExportFromPhotoLibraryWithReferenceURL:referenceURL outputLocalURL:tempVideoURL completion:^(NSError *error) {
+    NSURL *outputURL = nil;
+    if (!error) {
+      outputURL = tempVideoURL;
+    }
+    CallBlock(completion, outputURL, error);
+  }];
+}
+
+- (NSString *)localDocumentsPathForVideoNamed:(nonnull NSString *)videoName
+{
+  // AssertTrueOrReturnNil(videoName.length);
+  TWPathLocator *pathLocator = [TWPathLocator new];
+  NSString *documentsPath = [pathLocator documentsPath];
+  documentsPath = [documentsPath stringByAppendingPathComponent:kLocalUserVideosDirectoryName];
+  documentsPath = [documentsPath stringByAppendingPathComponent:videoName];
+  return documentsPath;
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
